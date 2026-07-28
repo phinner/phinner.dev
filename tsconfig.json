@@ -12,6 +12,8 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "noEmit": true,
+    // Vite's own d.ts files reference @types/node, which this project doesn't need.
+    "skipLibCheck": true,
 
     // Type Checking & Safety
     "strict": true,

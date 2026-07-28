@@ -1,3 +1,19 @@
+## Configuration
+
+Before the first run, copy the env template and fill it in:
+
+```bash
+$ cp .env.example .env
+```
+
+`VITE_NAME`, `VITE_LINKEDIN_URL` and `VITE_EMAIL` are read in `src/env.ts`, which
+throws on startup if any are missing — better a loud failure than a page that
+renders "undefined" where a name should be. `VITE_NAME` is also substituted into
+the `<title>` in `index.html`.
+
+These are inlined into the client bundle at build time, so everything in `.env`
+is public. Nothing secret belongs there.
+
 ## Usage
 
 Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.

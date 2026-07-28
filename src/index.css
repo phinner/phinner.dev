@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0c0d0e;
+  --color-panel: #17181a;
+  --color-panel-2: #202225;
+  --color-slab: rgb(20 21 23 / 93%);
+  --color-title-slab: rgb(36 38 42 / 95%);
+  --color-line: #3a3e43;
+  --color-line-soft: #2c2e31;
+  --color-amber: #ffd37f;
+  --color-amber-dim: #c79c4e;
+  --color-amber-ink: #241a06;
+  --color-text: #f4f5f6;
+  --color-muted: #b7bcc2;
+  --color-faint: #8f969c;
+
+  --font-display:
+    "Bahnschrift", "DIN Alternate", "Avenir Next Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, "Liberation Mono", monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-ink font-body leading-relaxed wrap-break-word text-text;
+  }
+
+  a {
+    @apply text-amber;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+
+  :focus-visible {
+    @apply outline-3 outline-offset-3 outline-amber;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
