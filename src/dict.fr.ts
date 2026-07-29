@@ -5,15 +5,15 @@ import type { Dictionary } from "./dict.en";
 export const dict: Dictionary = {
   hero: {
     role: "Développeur",
-    introduction: "Salutations, je suis développeur logiciel en Belgique",
+    introduction: "Salutations, Je suis un étudiant en informatique vivant en Belgique",
     specialty:
       "Je conçois principalement des systèmes backend en Java et Kotlin, avec une spécialisation dans les outils de modération et de développement pour serveurs de jeu.",
     copyEmail: "Copier l’adresse e-mail",
     emailCopied: "Adresse e-mail copiée",
   },
   sections: {
-    experience: "Expérience",
-    projects: "Projets",
+    experience: "Mon expérience",
+    projects: "Mes projets",
   },
   language: {
     switchToEnglish: "Passer en anglais",
