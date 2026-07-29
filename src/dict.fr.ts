@@ -8,6 +8,8 @@ export const dict: Dictionary = {
     introduction: "Salutations, je suis développeur logiciel en Belgique",
     specialty:
       "Je conçois principalement des systèmes backend en Java et Kotlin, avec une spécialisation dans les outils de modération et de développement pour serveurs de jeu.",
+    copyEmail: "Copier l’adresse e-mail",
+    emailCopied: "Adresse e-mail copiée",
   },
   sections: {
     experience: "Expérience",

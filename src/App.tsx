@@ -3,6 +3,7 @@ import {
   createEffect,
   createMemo,
   createSignal,
+  onCleanup,
   Show,
   splitProps,
   type Component,
@@ -149,6 +150,46 @@ const IconLink: Component<{
   </li>
 );
 
+const EmailCopyButton: Component<{
+  email: string;
+  copyLabel: string;
+  copiedLabel: string;
+}> = (props) => {
+  const [copied, setCopied] = createSignal(false);
+  let resetTimer: number | undefined;
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(props.email);
+    } catch {
+      return;
+    }
+
+    setCopied(true);
+    window.clearTimeout(resetTimer);
+    resetTimer = window.setTimeout(() => setCopied(false), 2000);
+  };
+
+  onCleanup(() => window.clearTimeout(resetTimer));
+
+  return (
+    <li>
+      <button
+        type="button"
+        class={cx(
+          "inline-flex cursor-pointer items-center gap-2 border border-line bg-panel-2 px-5 py-3 font-mono text-sm text-text",
+          fillOnHover,
+        )}
+        aria-label={copied() ? props.copiedLabel : props.copyLabel}
+        onClick={copyEmail}
+      >
+        <Icon name="mail" class="size-4" />
+        <span aria-live="polite">{copied() ? props.copiedLabel : props.email}</span>
+      </button>
+    </li>
+  );
+};
+
 const SectionTitle: Component<{ children: JSX.Element }> = (props) => (
   <Slab variant="title" class="px-4 py-3 sm:px-5 sm:py-4">
     <h2 class="flex items-center gap-4 text-2xl font-extrabold tracking-widest text-amber uppercase sm:text-3xl">
@@ -269,9 +310,11 @@ const App: Component = () => {
                 LinkedIn
               </IconLink>
             </Show>
-            <IconLink href={`mailto:${EMAIL}`} icon="mail" target="_self">
-              {EMAIL}
-            </IconLink>
+            <EmailCopyButton
+              email={EMAIL}
+              copyLabel={t("hero.copyEmail")}
+              copiedLabel={t("hero.emailCopied")}
+            />
           </Links>
         </Hero>
 

@@ -7,6 +7,8 @@ export const dict = {
     introduction: "Hi there, I'm a software developer based in Belgium",
     specialty:
       "I primarily build and run backend systems in Java and Kotlin, specializing in moderation and developer tooling for game servers.",
+    copyEmail: "Copy email address",
+    emailCopied: "Email copied",
   },
   sections: {
     experience: "Experience",
