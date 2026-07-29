@@ -24,23 +24,18 @@ const dictionaries = { en: enDict, fr: frDict };
 type Locale = keyof typeof dictionaries;
 
 const DEFAULT_LOCALE: Locale = "en";
-const LOCALE_STORAGE_KEY = "phinner.locale";
 
 const getInitialLocale = (): Locale => {
-  try {
-    const storedLocale = window.localStorage.getItem(LOCALE_STORAGE_KEY);
-    return storedLocale === "en" || storedLocale === "fr" ? storedLocale : DEFAULT_LOCALE;
-  } catch {
-    return DEFAULT_LOCALE;
-  }
+  if (typeof window === "undefined") return DEFAULT_LOCALE;
+
+  const requestedLocale = new URL(window.location.href).searchParams.get("lang");
+  return requestedLocale === "en" || requestedLocale === "fr" ? requestedLocale : DEFAULT_LOCALE;
 };
 
-const storeLocale = (locale: Locale) => {
-  try {
-    window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
-  } catch {
-    // localStorage may be unavailable in restricted browsing contexts.
-  }
+const syncUrlLocale = (locale: Locale) => {
+  const url = new URL(window.location.href);
+  url.searchParams.set("lang", locale);
+  window.history.replaceState(window.history.state, "", url);
 };
 
 const fillOnHover = "transition-colors hover:border-amber hover:bg-amber hover:text-amber-ink";
@@ -111,9 +106,6 @@ const LanguageSwitcher: Component<{
     aria-label={props.label}
     onClick={props.onToggle}
   >
-    <span class="text-faint" aria-hidden="true">
-      [
-    </span>
     <span class={props.locale === "en" ? "text-amber" : "text-faint"} aria-hidden="true">
       EN
     </span>
@@ -122,9 +114,6 @@ const LanguageSwitcher: Component<{
     </span>
     <span class={props.locale === "fr" ? "text-amber" : "text-faint"} aria-hidden="true">
       FR
-    </span>
-    <span class="text-faint" aria-hidden="true">
-      ]
     </span>
   </button>
 );
@@ -237,12 +226,13 @@ const App: Component = () => {
   const t = translator(dictionary, resolveTemplate);
 
   createEffect(() => {
-    document.documentElement.lang = locale();
+    const currentLocale = locale();
+    document.documentElement.lang = currentLocale;
+    syncUrlLocale(currentLocale);
   });
 
   const selectLocale = (nextLocale: Locale) => {
     setLocale(nextLocale);
-    storeLocale(nextLocale);
   };
 
   return (
