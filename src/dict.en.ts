@@ -4,7 +4,7 @@ import type { JSX } from "solid-js";
 export const dict = {
   hero: {
     role: "Software developer",
-    introduction: "I'm a CS student living in Belgium",
+    introduction: "Hi there, I'm a CS student living in Belgium",
     specialty:
       "I primarily build and run backend systems in Java and Kotlin, specializing in moderation and developer tooling for game servers.",
     copyEmail: "Copy email address",
