@@ -96,6 +96,9 @@ const Links: Component<{ children: JSX.Element }> = (props) => (
   <ul class="flex flex-wrap gap-2">{props.children}</ul>
 );
 
+const localeChip = (active: boolean) =>
+  active ? "text-amber group-hover:text-amber-ink" : "text-faint group-hover:text-amber-ink/45";
+
 const LanguageSwitcher: Component<{
   locale: Locale;
   label: string;
@@ -103,17 +106,20 @@ const LanguageSwitcher: Component<{
 }> = (props) => (
   <button
     type="button"
-    class="inline-flex cursor-pointer items-center gap-2 border border-amber-dim bg-panel-2 px-3 py-2 font-mono text-xs tracking-wider uppercase transition-colors hover:border-amber sm:ml-auto"
+    class={cx(
+      "group inline-flex cursor-pointer items-center gap-2 border border-amber-dim bg-panel-2 px-3 py-2 font-mono text-xs tracking-wider uppercase sm:ml-auto",
+      fillOnHover,
+    )}
     aria-label={props.label}
     onClick={props.onToggle}
   >
-    <span class={props.locale === "en" ? "text-amber" : "text-faint"} aria-hidden="true">
+    <span class={localeChip(props.locale === "en")} aria-hidden="true">
       EN
     </span>
-    <span class="text-faint" aria-hidden="true">
+    <span class="text-faint group-hover:text-amber-ink/45" aria-hidden="true">
       /
     </span>
-    <span class={props.locale === "fr" ? "text-amber" : "text-faint"} aria-hidden="true">
+    <span class={localeChip(props.locale === "fr")} aria-hidden="true">
       FR
     </span>
   </button>
