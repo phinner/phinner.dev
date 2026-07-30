@@ -478,17 +478,17 @@ const App: Component = () => {
           {t("footer.copyright", { year: COPYRIGHT_YEAR, name: NAME })}
         </Slab>
 
-        <Link
-          href="#main"
-          target="_self"
+        <button
+          type="button"
           aria-label={t("footer.backToTop")}
           class={cx(
-            "group flex size-11 items-center justify-center border border-line bg-slab text-amber no-underline",
+            "group flex size-11 items-center justify-center border border-line bg-slab text-amber cursor-pointer",
             fillOnHover,
           )}
+          on:click={() => window.scrollTo({ top: 0 })}
         >
           <Icon name="arrow-up-right" class="size-5 -rotate-45 group-hover:text-amber-ink" />
-        </Link>
+        </button>
       </div>
     </>
   );
