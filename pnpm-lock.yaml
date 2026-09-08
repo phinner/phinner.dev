@@ -192,6 +192,9 @@ importers:
       effect:
         specifier: 4.0.0-rc.112
         version: 4.0.0-rc.112
+      sitemap:
+        specifier: ^9.0.1
+        version: 9.0.1
       solid-js:
         specifier: 2.0.0-rc.4
         version: 2.0.0-rc.4
@@ -1216,6 +1219,9 @@ packages:
   '@types/node@24.13.3':
     resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
 
+  '@types/sax@1.2.7':
+    resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
+
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
@@ -1338,6 +1344,9 @@ packages:
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [win32]
+
+  arg@5.0.2:
+    resolution: {integrity: sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg==}
 
   baseline-browser-mapping@2.11.21:
     resolution: {integrity: sha512-uh8vpY/1/YyFkunIDFH/12p7/7VdPKA1hejMVEbdkEaWnUz0Hesvx5EbiU6XxjyHZIOju+ZMbQJkRh+es3/spQ==}
@@ -1600,6 +1609,10 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
+  sax@1.6.1:
+    resolution: {integrity: sha512-42tBVwLWnaQvW5zc4HbZrTuWccECCZfBi92FDuwtqxasH+JbPB3/FOKb1m222K42R4WxuxzzMsTswfzgtSu64Q==}
+    engines: {node: '>=11.0.0'}
+
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
@@ -1622,6 +1635,11 @@ packages:
   sharp@0.35.2:
     resolution: {integrity: sha512-FVtFjtBCMiJS6yb5CX7Sop45WFMpeGw6oRKuJnXYgf/f1ms/D7LE/ZUSNxnW7rZ/dbslQWYkoqFHGPaDBtaK4w==}
     engines: {node: '>=20.9.0'}
+
+  sitemap@9.0.1:
+    resolution: {integrity: sha512-S6hzjGJSG3d6if0YoF5kTyeRJvia6FSTBroE5fQ0bu1QNxyJqhhinfUsXi9fH3MgtXODWvwo2BDyQSnhPQ88uQ==}
+    engines: {node: '>=20.19.5', npm: '>=10.8.2'}
+    hasBin: true
 
   solid-js@2.0.0-rc.4:
     resolution: {integrity: sha512-hSkDmtduesjFtvzjNyqLphrqiSvhSD5+njkPQUR+9YEoR60MMWtuv36SbLL4OucI0Ronof3Jc+AsUp0oWffwMg==}
@@ -2511,6 +2529,10 @@ snapshots:
     dependencies:
       undici-types: 7.18.2
 
+  '@types/sax@1.2.7':
+    dependencies:
+      '@types/node': 22.20.1
+
   '@types/ws@8.18.1':
     dependencies:
       '@types/node': 24.13.3
@@ -2574,6 +2596,8 @@ snapshots:
 
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
+
+  arg@5.0.2: {}
 
   baseline-browser-mapping@2.11.21: {}
 
@@ -2852,6 +2876,8 @@ snapshots:
       '@rolldown/binding-win32-arm64-msvc': 1.2.7
       '@rolldown/binding-win32-x64-msvc': 1.2.7
 
+  sax@1.6.1: {}
+
   semver@6.3.1: {}
 
   semver@7.8.5: {}
@@ -2893,6 +2919,13 @@ snapshots:
       '@img/sharp-win32-arm64': 0.35.2
       '@img/sharp-win32-ia32': 0.35.2
       '@img/sharp-win32-x64': 0.35.2
+
+  sitemap@9.0.1:
+    dependencies:
+      '@types/node': 24.13.3
+      '@types/sax': 1.2.7
+      arg: 5.0.2
+      sax: 1.6.1
 
   solid-js@2.0.0-rc.4:
     dependencies:
