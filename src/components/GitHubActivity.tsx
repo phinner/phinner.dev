@@ -25,7 +25,7 @@ export function GitHubActivity() {
 
   let tooltip: HTMLDivElement | undefined;
   const hideTooltip = () => tooltip?.hidePopover();
-  const showTooltip = (target: HTMLButtonElement) => {
+  const showTooltip = (target: HTMLSpanElement) => {
     if (!tooltip) return;
     tooltip.textContent = target.getAttribute("aria-label");
     tooltip.showPopover();
@@ -123,16 +123,11 @@ export function GitHubActivity() {
                   <div class={styles.cells}>
                     <For each={days()}>
                       {(day) => (
-                        <button
-                          type="button"
+                        <span
+                          role="img"
                           class={styles.cell}
                           onPointerEnter={(event) => showTooltip(event.currentTarget)}
                           onPointerLeave={hideTooltip}
-                          onFocus={(event) => showTooltip(event.currentTarget)}
-                          onBlur={hideTooltip}
-                          onKeyDown={(event) => {
-                            if (event.key === "Escape") hideTooltip();
-                          }}
                           data-l={levels[day.contributionLevel]}
                           style={`grid-row:${new Date(day.date).getUTCDay() + 1}`}
                           aria-label={`${content[language()].dailyContributions(day.contributionCount)} | ${format().format(new Date(day.date))}`}
