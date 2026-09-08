@@ -5,7 +5,7 @@ import { test } from "node:test";
 
 test("production pages, 404s, and JavaScript assets work", { timeout: 20000 }, async (t) => {
   const server = spawn(process.execPath, ["dist/server/node.js"], {
-    env: { ...process.env, PORT: "0", GITHUB_TOKEN: "" },
+    env: { ...process.env, HOST: "127.0.0.1", PORT: "0", GITHUB_TOKEN: "" },
     stdio: ["ignore", "pipe", "inherit"],
   });
   t.after(async () => {

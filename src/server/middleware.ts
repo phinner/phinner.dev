@@ -1,9 +1,33 @@
 import { type FetchMiddleware, parseCookieHeader, serializeCookie } from "@solidjs/web";
+import { SitemapStream, streamToPromise } from "sitemap";
 import { resolveLanguage } from "../lib/language";
+import { PROJECT_NAMES } from "../projects/types";
 import { getGitHubActivity } from "./github";
 
 const middleware: FetchMiddleware = async (request, next) => {
   const pathname = new URL(request.url).pathname;
+
+  if (pathname === "/sitemap.xml") {
+    if (request.method !== "GET" && request.method !== "HEAD") {
+      return new Response("Method not allowed", {
+        status: 405,
+        headers: { Allow: "GET, HEAD" },
+      });
+    }
+    const sitemap = new SitemapStream({ hostname: "https://phinner.dev" });
+    const xml = streamToPromise(sitemap);
+    for (const url of ["/", "/projects", ...PROJECT_NAMES.map((name) => `/projects/${name}`)]) {
+      sitemap.write({ url });
+    }
+    sitemap.end();
+    const body = (await xml).toString();
+    return new Response(request.method === "HEAD" ? null : body, {
+      headers: {
+        "Content-Type": "application/xml; charset=utf-8",
+        "Cache-Control": "public, max-age=3600",
+      },
+    });
+  }
 
   if (pathname === "/api/github") {
     if (request.method !== "GET") {
