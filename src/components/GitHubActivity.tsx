@@ -72,7 +72,7 @@ export function GitHubActivity() {
   });
 
   return (
-    <article class={`${shared.panel} ${styles.oss}`}>
+    <article class={`${shared.panel} ${styles.oss} ${shared.slideIn}`}>
       <div class={styles.activity}>
         <Show
           when={calendar()}

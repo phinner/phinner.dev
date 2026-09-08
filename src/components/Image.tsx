@@ -31,6 +31,7 @@ export function Image(props: {
     <img
       ref={element}
       class={styles.image}
+      data-preview
       src={props.image.src}
       alt={props.alt}
       width={props.image.width}
@@ -47,5 +48,11 @@ export function Image(props: {
       onLoad={settle}
       onError={settle}
     />
+  );
+}
+
+export function ImageLoadingScript() {
+  return (
+    <script>{`for (const type of ['load', 'error']) document.addEventListener(type, ({ target }) => { if (target instanceof HTMLImageElement && target.hasAttribute('data-preview')) target.style.backgroundImage = 'none'; }, true);`}</script>
   );
 }

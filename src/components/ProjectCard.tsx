@@ -1,3 +1,4 @@
+import { useLocation } from "@solidjs/router";
 import { For, Show } from "solid-js";
 import { formatDateRange } from "../lib/dates";
 import type { ProjectSummary } from "../projects";
@@ -9,6 +10,7 @@ import styles from "./ProjectCard.module.css";
 
 export function ProjectCard(props: { project: ProjectSummary }) {
   const { language } = useLanguage();
+  const location = useLocation();
   const project = () => props.project;
   const content = () => project().content[language()];
 
@@ -19,7 +21,7 @@ export function ProjectCard(props: { project: ProjectSummary }) {
         [styles.entry]: true,
         [styles.wide]: project().image.kind === "screenshot",
       }}
-      href={`/projects/${project().name}`}
+      href={`/projects/${project().name}${location.pathname === "/" ? "?from-home=true" : ""}`}
     >
       <div class={styles.row}>
         <figure

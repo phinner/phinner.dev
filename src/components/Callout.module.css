@@ -1,6 +1,5 @@
 .callout {
   border: 2px solid var(--line-soft);
-  border-left-color: var(--accent);
   border-radius: 0.75rem;
   background: var(--page-sunk);
   transition: border-color 130ms linear;
@@ -9,7 +8,6 @@
 .callout:hover,
 .callout[open] {
   border-color: var(--line);
-  border-left-color: var(--accent);
 }
 
 /*

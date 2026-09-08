@@ -10,6 +10,7 @@
   },
   "scripts": {
     "dev": "vite --host 127.0.0.1",
+    "dev:worker": "wrangler dev --local",
     "build": "vite build",
     "start": "node --env-file-if-exists=.env dist/server/node.js",
     "check": "tsc --noEmit",
@@ -19,7 +20,6 @@
     "lint:fix": "biome check --write --unsafe .",
     "test": "node --experimental-transform-types --test tests/*.test.ts",
     "test:http": "pnpm build && node --test tests/http.test.mjs",
-    "dev:worker": "wrangler dev --local",
     "test:worker": "pnpm build && node --test tests/worker.test.mjs",
     "deploy": "wrangler deploy"
   },

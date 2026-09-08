@@ -1,4 +1,4 @@
-import { lazy } from "solid-js";
+import { Loading, lazy } from "solid-js";
 import { BuildingIcon, ChevronRightIcon, GitHubIcon, HammerIcon } from "../components/Icon";
 import { useLanguage } from "../components/LanguageProvider";
 import { PageMeta } from "../components/PageMeta";
@@ -53,7 +53,9 @@ export default function Home() {
       </section>
       <section>
         <SectionHeader title={content[language()].openSource} icon={GitHubIcon} />
-        <GitHubActivity />
+        <Loading>
+          <GitHubActivity />
+        </Loading>
       </section>
     </div>
   );

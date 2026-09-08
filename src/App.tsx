@@ -4,11 +4,12 @@ import shared from "./styles/shared.module.css";
 import "@fontsource/momo-trust-display/latin-400.css";
 import "./styles/global.css";
 import { createRouter } from "@solidjs/router";
-import { Loading, type ParentProps } from "solid-js";
+import type { ParentProps } from "solid-js";
 import { Clouds } from "./components/Clouds";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { type Content, LanguageProvider, useLanguage } from "./components/LanguageProvider";
+import { NavigationTransitions } from "./components/NavigationTransitions";
 import Home from "./routes/index";
 import NotFound from "./routes/NotFound";
 import Project from "./routes/projects/[name]";
@@ -46,13 +47,14 @@ function Shell(props: ParentProps) {
 
   return (
     <div class={styles.shell}>
+      <NavigationTransitions />
       <Clouds />
       <a class={styles.skipLink} href="#main">
         {content[language()]}
       </a>
       <Header />
       <main class={`${shared.wrap} ${styles.page}`} id="main" tabindex="-1">
-        <Loading>{props.children}</Loading>
+        {props.children}
       </main>
       <Footer />
     </div>

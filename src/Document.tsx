@@ -2,6 +2,7 @@ import momoLatin from "@fontsource/momo-trust-display/files/momo-trust-display-l
 import martianLatin from "@fontsource-variable/martian-mono/files/martian-mono-latin-wght-normal.woff2?url";
 import { HydrationScript } from "@solidjs/web";
 import type { ParentProps } from "solid-js";
+import { ImageLoadingScript } from "./components/Image";
 import { ThemeProviderScript } from "./components/ThemeProvider";
 import { initialLanguage } from "./lib/language";
 
@@ -21,6 +22,7 @@ export default function Document(props: ParentProps) {
           crossorigin="anonymous"
         />
         <ThemeProviderScript />
+        <ImageLoadingScript />
         <HydrationScript />
       </head>
       <body id="top">{props.children}</body>

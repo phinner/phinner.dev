@@ -1,6 +1,7 @@
+import { useSearchParams } from "@solidjs/router";
 import { Dynamic } from "@solidjs/web";
 import type { ParentProps } from "solid-js";
-import { For, Show } from "solid-js";
+import { For, Loading, Show } from "solid-js";
 import { formatDateRange } from "../lib/dates";
 import type { ProjectSummary } from "../projects";
 import shared from "../styles/shared.module.css";
@@ -12,15 +13,19 @@ import styles from "./ProjectPage.module.css";
 
 export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
   const { language } = useLanguage();
+  const [searchParams] = useSearchParams();
+  const fromHome = () => searchParams["from-home"] === "true";
   const project = () => props.project;
   const summary = () => project().content[language()];
   const content = {
     en: {
       back: "Back to projects",
+      home: "Back to home",
       screenshot: (name: string) => `Screenshot of the ${name} website`,
     },
     fr: {
       back: "Retour aux projets",
+      home: "Retour à l'accueil",
       screenshot: (name: string) => `Capture du site web de ${name}`,
     },
   };
@@ -42,8 +47,8 @@ export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
           <div class={styles.titleRow}>
             <a
               class={`${shared.btn} ${shared.square} ${styles.back}`}
-              href="/projects"
-              aria-label={content[language()].back}
+              href={fromHome() ? "/" : "/projects"}
+              aria-label={fromHome() ? content[language()].home : content[language()].back}
             >
               <span class={shared.face}>
                 <ChevronLeftIcon />
@@ -89,7 +94,11 @@ export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
           </div>
         </div>
       </header>
-      <article class={`${shared.panel} ${styles.prose}`}>{props.children}</article>
+      <Loading>
+        <article class={`${shared.panel} ${styles.prose} ${shared.slideIn}`}>
+          {props.children}
+        </article>
+      </Loading>
     </div>
   );
 }
