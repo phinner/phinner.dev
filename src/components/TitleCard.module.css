@@ -1,0 +1,55 @@
+.profile {
+  padding: var(--pad);
+  display: grid;
+  gap: 1rem;
+}
+
+.profile .ident {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.profile h1 {
+  font-size: var(--heading-display);
+  line-height: 1;
+}
+
+.profile .role {
+  margin-top: 0.625rem;
+  line-height: 1.5;
+  font-family: var(--mono);
+  font-size: var(--text-body);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.profile p {
+  max-width: 42rem;
+  color: var(--ink-muted);
+  font-size: var(--text-lede);
+}
+
+.profile .cta {
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 26rem) {
+  .profile .ident {
+    gap: 0.5rem;
+  }
+
+  .profile .role {
+    font-size: var(--text-ui);
+  }
+}

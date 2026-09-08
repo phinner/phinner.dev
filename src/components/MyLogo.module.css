@@ -1,0 +1,40 @@
+.logoBtn {
+  flex: none;
+  width: clamp(5.5rem, 14vw, 8.5rem);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--logo);
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 1rem;
+}
+
+.logoBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.logo .inner {
+  fill: var(--logo-dark);
+}
+
+.logo .swirl {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+@media (max-width: 26rem) {
+  .logoBtn {
+    width: 4rem;
+  }
+}

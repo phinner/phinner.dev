@@ -1,0 +1,15 @@
+.media {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  width: min(100%, 36rem);
+  margin-inline: auto;
+}
+
+.media img {
+  flex: var(--aspect-ratio) 1 0;
+  min-width: 0;
+  width: 0;
+  height: auto;
+  border-radius: 0.5rem;
+}

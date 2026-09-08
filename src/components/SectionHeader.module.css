@@ -1,0 +1,66 @@
+.sectionHead {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem var(--pad);
+  margin-bottom: 1rem;
+  background: var(--frost-sunk);
+  -webkit-backdrop-filter: var(--frost);
+  backdrop-filter: var(--frost);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .sectionHead {
+    background: var(--panel-sunk);
+  }
+}
+
+.sectionHead .n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 2px solid var(--line-soft);
+  border-radius: 0.5rem;
+  background: var(--page-sunk);
+  color: var(--accent);
+}
+
+.sectionHead .n svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: currentColor;
+}
+
+.sectionHead :is(h1, h2) {
+  font-size: var(--heading-2);
+}
+
+.sectionHead .sub {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+.sectionHead a.sub {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.sectionHead a.sub:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 40rem) {
+  .sectionHead .sub {
+    white-space: normal;
+    text-align: right;
+  }
+}

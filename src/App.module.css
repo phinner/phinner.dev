@@ -1,0 +1,29 @@
+.page {
+  display: grid;
+  gap: 2rem;
+  padding-block: 2rem;
+  align-content: start;
+}
+
+.page > * {
+  min-width: 0;
+}
+
+.skipLink {
+  position: fixed;
+  top: -5rem;
+  left: 1rem;
+  z-index: 100;
+  background: var(--panel);
+  padding: 0.5rem 1rem;
+}
+
+.skipLink:focus {
+  top: 1rem;
+}
+
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}

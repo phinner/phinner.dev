@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.solid/
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+
+# Container specific
+Containerfile
+.containerignore
+.dockerignore
+.git
+.gitignore
+.github

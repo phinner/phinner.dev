@@ -1,32 +1,41 @@
 {
   "name": "phinner-website",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "private": true,
-  "description": "My personal website",
-  "license": "MIT",
   "type": "module",
+  "license": "MIT",
+  "packageManager": "pnpm@11.24.0",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
+    "dev": "vite --host 127.0.0.1",
     "build": "vite build",
-    "serve": "vite preview",
-    "dev": "vite",
-    "check": "oxfmt . && oxlint . --fix && tsc --noEmit"
+    "start": "node --env-file-if-exists=.env dist/server/node.js",
+    "check": "tsc --noEmit",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome check . --error-on-warnings",
+    "lint:fix": "biome check --write --unsafe .",
+    "test": "node --experimental-transform-types --test tests/*.test.ts",
+    "test:http": "pnpm build && node --test tests/http.test.mjs"
   },
   "dependencies": {
-    "@fontsource-variable/inter": "^5.3.0",
-    "@fontsource-variable/jetbrains-mono": "^5.3.0",
-    "@fontsource/barlow": "^5.3.0",
-    "@solid-primitives/i18n": "^2.2.1",
-    "solid-js": "^1.9.5"
+    "@effect/platform-node": "4.0.0-rc.112",
+    "@fontsource-variable/martian-mono": "^5.3.0",
+    "@fontsource/momo-trust-display": "^5.3.0",
+    "@solidjs/meta": "1.0.0-next.2",
+    "@solidjs/router": "2.0.0-next.18",
+    "@solidjs/web": "2.0.0-rc.4",
+    "effect": "4.0.0-rc.112",
+    "solid-js": "2.0.0-rc.4",
+    "valibot": "^1.4.2"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "eslint-plugin-tailwindcss": "^4.2.0",
-    "oxfmt": "^0.61.0",
-    "oxlint": "^1.76.0",
-    "solid-devtools": "^0.34.3",
-    "tailwindcss": "^4.3.3",
-    "typescript": "^5.7.2",
-    "vite": "^7.1.4",
-    "vite-plugin-solid": "^2.11.8"
+    "@biomejs/biome": "2.5.12",
+    "@types/node": "^22.10.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.1",
+    "vite-plugin-solid": "3.0.0-next.27"
   }
 }

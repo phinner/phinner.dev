@@ -1,0 +1,81 @@
+.callout {
+  border: 2px solid var(--line-soft);
+  border-left-color: var(--accent);
+  border-radius: 0.75rem;
+  background: var(--page-sunk);
+  transition: border-color 130ms linear;
+}
+
+.callout:hover,
+.callout[open] {
+  border-color: var(--line);
+  border-left-color: var(--accent);
+}
+
+/*
+ * The native marker is replaced by a chevron drawn in ::before so it can
+ * rotate on open. The element stays a real <summary>, so keyboard toggling,
+ * screen reader announcement and find-in-page all keep working.
+ */
+.callout > summary {
+  position: relative;
+  padding: 0.75rem 1rem 0.75rem 2.25rem;
+  border-radius: 0.625rem;
+  list-style: none;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 130ms linear,
+    color 130ms linear;
+}
+
+.callout > summary::-webkit-details-marker {
+  display: none;
+}
+
+.callout > summary::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: translateY(-50%) rotate(-45deg);
+  transition:
+    transform 190ms var(--ease),
+    border-color 130ms linear;
+}
+
+.callout > summary:hover {
+  background: var(--nav-hover);
+  color: var(--accent);
+}
+
+.callout > summary:hover::before {
+  border-color: var(--accent-hover);
+}
+
+.callout[open] > summary {
+  border-bottom: 2px solid var(--line-soft);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.callout[open] > summary::before {
+  transform: translateY(-70%) rotate(45deg);
+}
+
+.callout > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: 0.5rem;
+}
+
+.content {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem 1rem;
+}

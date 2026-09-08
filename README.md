@@ -1,22 +1,23 @@
 # phinner.dev
 
-My personal portfolio, built with Solid, TypeScript, Tailwind CSS, and Vite.
+My portfolio, built with Solid 2 and Effect. Available in English and French.
 
-## Setup
+Use Node 24.
 
 ```sh
-cp .env.example .env
 pnpm install
 pnpm dev
 ```
 
-Everything in `.env` is included in the client bundle and must be public.
+Should be open at http://localhost:4321.
 
-## Commands
+To enable GitHub activity, add `GITHUB_TOKEN` to `.env`, then restart the server.
 
 ```sh
-pnpm dev
-pnpm build
-pnpm serve
-pnpm check
+pnpm lint              # Code style
+pnpm check             # Typecheck
+pnpm test              # Language and GitHub behavior
+pnpm test:http         # Build and check production HTTP responses
+pnpm build             # Production build
+pnpm start             # Serve on localhost:3000
 ```

@@ -1,0 +1,53 @@
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cloud {
+  --m: 2rem;
+  position: absolute;
+  left: calc(-1 * var(--w) - var(--m));
+  width: var(--w);
+  aspect-ratio: var(--ar);
+  animation: drift var(--t) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.cloud svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.cloud.flip svg {
+  transform: scaleX(-1);
+}
+
+.cloud .outline {
+  fill: none;
+  stroke: var(--line-soft);
+}
+
+.cloud .body {
+  fill: var(--panel-sunk);
+}
+
+.cloud.near .body {
+  fill: var(--panel);
+}
+
+@keyframes drift {
+  to {
+    transform: translateX(calc(100vw + var(--w) + var(--m) * 2));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud {
+    animation: none;
+    transform: translateX(calc(var(--pos) * (100vw + var(--w) + var(--m) * 2)));
+  }
+}

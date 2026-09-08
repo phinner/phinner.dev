@@ -1,0 +1,178 @@
+.wrap {
+  width: min(calc(100% - clamp(1.25rem, 5vw, 3.5rem) * 2), 60rem);
+  margin-inline: auto;
+}
+
+.panel {
+  border: 2px solid var(--line);
+  border-radius: 1rem;
+  background: var(--panel);
+}
+
+.btn {
+  --d: 4px;
+  --edge: var(--btn-line);
+  --wall: var(--btn-line);
+  --face: var(--panel-sunk);
+  --on: var(--ink);
+  --g: transparent;
+  position: relative;
+  display: inline-block;
+  margin-top: 4px;
+  padding: 0;
+  border: 2px solid var(--edge);
+  border-radius: 0.5rem;
+  background: var(--wall);
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  font: inherit;
+}
+
+.btn > .face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 2.75rem;
+  margin: -2px;
+  padding: 0 1.25rem;
+  border: 2px solid var(--edge);
+  border-radius: inherit;
+  background-color: var(--face);
+  background-image: linear-gradient(var(--g) 0 42%, transparent 42%);
+  color: var(--on);
+  font-size: var(--text-body);
+  font-weight: 400;
+  white-space: nowrap;
+  transform: translateY(calc(var(--d) * -1));
+  transition:
+    transform 190ms var(--ease),
+    background-color 130ms linear;
+}
+
+.btn.small > .face {
+  min-height: 2.25rem;
+  padding-inline: 0.875rem;
+  font-size: 0.875rem;
+}
+
+.btn.square > .face {
+  width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  --d: 6px;
+}
+
+.btn:hover > .face,
+.btn:focus-visible > .face {
+  --face: var(--btn-hover);
+}
+
+.btn:active {
+  --d: 0px;
+}
+
+.btn:active > .face {
+  transition-duration: 70ms;
+}
+
+.btn.accent {
+  --edge: var(--accent-wall);
+  --wall: var(--accent-wall);
+  --face: var(--accent);
+  --on: var(--on-accent);
+  --g: var(--gloss);
+}
+
+.btn.accent:hover > .face,
+.btn.accent:focus-visible > .face {
+  --face: var(--accent-hover);
+}
+
+.badge svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  fill: currentColor;
+}
+
+.btn svg {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+  fill: currentColor;
+}
+
+.btn.square svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.view {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  align-content: start;
+}
+
+.stack {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.roleIn {
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.375rem 0.75rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.625rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 0.25rem;
+  background: var(--page-sunk);
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.125rem;
+}
+
+.view > * {
+  min-width: 0;
+}
+
+.inlineIcon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.125em;
+}
