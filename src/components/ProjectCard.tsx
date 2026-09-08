@@ -13,6 +13,16 @@ export function ProjectCard(props: { project: ProjectSummary }) {
   const location = useLocation();
   const project = () => props.project;
   const content = () => project().content[language()];
+  const imageLabels = {
+    en: {
+      logo: (name: string) => `${name} logo`,
+      screenshot: (name: string) => `Screenshot of the ${name} website`,
+    },
+    fr: {
+      logo: (name: string) => `Logo de ${name}`,
+      screenshot: (name: string) => `Capture du site web de ${name}`,
+    },
+  };
 
   return (
     <a
@@ -33,7 +43,7 @@ export function ProjectCard(props: { project: ProjectSummary }) {
         >
           <Image
             image={project().image}
-            alt=""
+            alt={imageLabels[language()][project().image.kind](project().title)}
             loading="lazy"
             fit={project().image.kind === "logo" ? "contain" : "cover"}
             position={project().image.kind === "screenshot" ? "left top" : "center"}

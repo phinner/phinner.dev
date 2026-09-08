@@ -19,11 +19,13 @@ export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
   const summary = () => project().content[language()];
   const content = {
     en: {
+      logo: (name: string) => `${name} logo`,
       back: "Back to projects",
       home: "Back to home",
       screenshot: (name: string) => `Screenshot of the ${name} website`,
     },
     fr: {
+      logo: (name: string) => `Logo de ${name}`,
       back: "Retour aux projets",
       home: "Retour à l'accueil",
       screenshot: (name: string) => `Capture du site web de ${name}`,
@@ -62,7 +64,11 @@ export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
             </h1>
             <Show when={project().image.kind === "logo"}>
               <span class={styles.mark}>
-                <Image image={project().image} alt="" fit="contain" />
+                <Image
+                  image={project().image}
+                  alt={content[language()].logo(project().title)}
+                  fit="contain"
+                />
               </span>
             </Show>
             <Show when={project().period}>
