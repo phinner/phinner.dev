@@ -1,4 +1,5 @@
 allowBuilds:
+  workerd: true
   esbuild: true
   "@parcel/watcher": true
   cypress: false

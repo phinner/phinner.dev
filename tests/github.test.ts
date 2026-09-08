@@ -48,8 +48,15 @@ test("GitHub failures return a fallback and a later request can recover", {
   assert.equal(await getGitHubActivity(), null);
   assert.equal(aborted, true);
 
-  fetchMock.mock.mockImplementation(async () => Response.json(githubPayload));
-  const activity = await getGitHubActivity();
+  fetchMock.mock.mockImplementation(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    return Response.json(githubPayload);
+  });
+  const before = fetchMock.mock.callCount();
+  const activities = await Promise.all(Array.from({ length: 8 }, () => getGitHubActivity()));
+  assert.equal(fetchMock.mock.callCount(), before + 8);
+  const activity = activities[0];
+  for (const result of activities) assert.deepEqual(result, activity);
   assert.ok(activity);
   assert.equal(activity.pullRequests[0]?.title, githubPayload.data.pullRequests.nodes[0].title);
   const requests = fetchMock.mock.callCount();

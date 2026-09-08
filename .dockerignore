@@ -7,6 +7,10 @@ dist/
 .DS_Store
 .idea/
 
+.wrangler/
+.dev.vars
+.dev.vars.*
+
 # Container specific
 Containerfile
 .containerignore

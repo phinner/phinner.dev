@@ -6,18 +6,26 @@ Use Node 24.
 
 ```sh
 pnpm install
-pnpm dev
+pnpm dev              # localhost:4321
+pnpm dev:worker       # Cloudflare preview on localhost:8787
 ```
 
-Should be open at http://localhost:4321.
-
-To enable GitHub activity, add `GITHUB_TOKEN` to `.env`, then restart the server.
+For GitHub activity, add `GITHUB_TOKEN` to `.env`.
 
 ```sh
-pnpm lint              # Code style
-pnpm check             # Typecheck
-pnpm test              # Language and GitHub behavior
-pnpm test:http         # Build and check production HTTP responses
-pnpm build             # Production build
-pnpm start             # Serve on localhost:3000
+pnpm lint
+pnpm check
+pnpm test
+pnpm test:http
+pnpm test:worker
 ```
+
+Deploy to Cloudflare:
+
+```sh
+pnpm exec wrangler login
+pnpm exec wrangler secret put GITHUB_TOKEN # Optional
+pnpm run deploy
+```
+
+Or run locally with `pnpm build && pnpm start` on localhost:3000.

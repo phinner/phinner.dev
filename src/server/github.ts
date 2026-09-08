@@ -61,11 +61,16 @@ const fetchActivity = Effect.gen(function* () {
   Effect.catch(() => Effect.succeed(null)),
 );
 
-const [cached, invalidate] = Effect.runSync(
-  Effect.cachedInvalidateWithTTL(fetchActivity, "5 minutes"),
-);
+let cached:
+  | { activity: NonNullable<Effect.Success<typeof fetchActivity>>; expiresAt: number }
+  | undefined;
 
-export const getGitHubActivity = () =>
-  Effect.runPromise(
-    cached.pipe(Effect.tap((activity) => (activity === null ? invalidate : Effect.void))),
-  );
+export async function getGitHubActivity() {
+  if (cached && Date.now() < cached.expiresAt) return cached.activity;
+
+  const activity = await Effect.runPromise(fetchActivity);
+  if (activity !== null) {
+    cached = { activity, expiresAt: Date.now() + 5 * 60 * 1000 };
+  }
+  return activity;
+}

@@ -4,7 +4,10 @@ import solid from "vite-plugin-solid";
 
 export default defineConfig(({ command, mode }) => {
   const commit = (() => {
-    const supplied = process.env.GITHUB_SHA ?? process.env.VERCEL_GIT_COMMIT_SHA;
+    const supplied =
+      process.env.GITHUB_SHA ??
+      process.env.VERCEL_GIT_COMMIT_SHA ??
+      process.env.WORKERS_CI_COMMIT_SHA;
     if (supplied && /^[a-f\d]{7,40}$/i.test(supplied)) return supplied;
     try {
       return execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
@@ -42,7 +45,9 @@ export default defineConfig(({ command, mode }) => {
     server: { host: "127.0.0.1", port: 4321 },
     environments: {
       ssr: {
-        build: { rollupOptions: { input: { node: "src/server/node.ts" } } },
+        build: {
+          rollupOptions: { input: { node: "src/server/node.ts", worker: "src/server/worker.ts" } },
+        },
       },
     },
     build: { target: "esnext", assetsInlineLimit: 0 },
