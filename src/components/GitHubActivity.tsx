@@ -22,6 +22,19 @@ function scrollToLatest(el: HTMLElement) {
 
 export function GitHubActivity() {
   const { language } = useLanguage();
+
+  let tooltip: HTMLDivElement | undefined;
+  const hideTooltip = () => tooltip?.hidePopover();
+  const showTooltip = (target: HTMLButtonElement) => {
+    if (!tooltip) return;
+    tooltip.textContent = target.getAttribute("aria-label");
+    tooltip.showPopover();
+    const cell = target.getBoundingClientRect();
+    const width = tooltip.offsetWidth;
+    tooltip.style.left = `${Math.max(8, Math.min(cell.left + cell.width / 2 - width / 2, window.innerWidth - width - 8))}px`;
+    tooltip.style.top = `${Math.max(8, cell.top - tooltip.offsetHeight - 8)}px`;
+  };
+
   const content = {
     en: {
       activity: "GitHub activity",
@@ -47,6 +60,7 @@ export function GitHubActivity() {
       pullRequests: "Pull requests récentes",
     },
   };
+
   const activity = createMemo(() => githubActivity());
   const calendar = () => activity()?.calendar;
   const format = createMemo(
@@ -73,6 +87,7 @@ export function GitHubActivity() {
 
   return (
     <article class={`${shared.panel} ${styles.oss} ${shared.slideIn}`}>
+      <div ref={tooltip} class={styles.tooltip} popover="manual" role="tooltip" />
       <div class={styles.activity}>
         <Show
           when={calendar()}
@@ -94,6 +109,7 @@ export function GitHubActivity() {
                 <section
                   class={styles.scroller}
                   ref={scrollToLatest}
+                  onScroll={hideTooltip}
                   tabindex="0"
                   aria-label={content[language()].activity}
                 >
@@ -107,11 +123,19 @@ export function GitHubActivity() {
                   <div class={styles.cells}>
                     <For each={days()}>
                       {(day) => (
-                        <i
+                        <button
+                          type="button"
                           class={styles.cell}
+                          onPointerEnter={(event) => showTooltip(event.currentTarget)}
+                          onPointerLeave={hideTooltip}
+                          onFocus={(event) => showTooltip(event.currentTarget)}
+                          onBlur={hideTooltip}
+                          onKeyDown={(event) => {
+                            if (event.key === "Escape") hideTooltip();
+                          }}
                           data-l={levels[day.contributionLevel]}
                           style={`grid-row:${new Date(day.date).getUTCDay() + 1}`}
-                          title={`${content[language()].dailyContributions(day.contributionCount)} | ${format().format(new Date(day.date))}`}
+                          aria-label={`${content[language()].dailyContributions(day.contributionCount)} | ${format().format(new Date(day.date))}`}
                         />
                       )}
                     </For>
