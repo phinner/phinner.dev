@@ -79,6 +79,16 @@ export function GitHubIcon() {
   );
 }
 
+// Source: https://lucide.dev/icons/git-commit-horizontal
+export function GitCommitIcon(props: { class?: string }) {
+  return (
+    <svg aria-hidden="true" {...LUCIDE_SVG_PROPS} class={props.class}>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M3 12h6m6 0h6" />
+    </svg>
+  );
+}
+
 // Source: https://lucide.dev/icons/git-pull-request
 export function GitPullRequestIcon(props: { class?: string }) {
   return (

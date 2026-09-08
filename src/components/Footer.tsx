@@ -2,7 +2,7 @@ import { createSignal, onSettled, Show } from "solid-js";
 import shared from "../styles/shared.module.css";
 import { Contact, DiscordContact } from "./Contact";
 import styles from "./Footer.module.css";
-import { ArrowUpIcon } from "./Icon";
+import { ArrowUpIcon, GitCommitIcon } from "./Icon";
 import { useLanguage } from "./LanguageProvider";
 
 export function Footer() {
@@ -35,9 +35,9 @@ export function Footer() {
     <footer class={styles.footer}>
       <div class={`${shared.wrap} ${styles.wrap}`}>
         <span class={styles.meta}>
-          © {new Date().getFullYear()} Phinner.
+          <span>© {new Date().getFullYear()} Phinner</span>
           <Show when={__COMMIT_SHA__}>
-            {" "}
+            <span aria-hidden="true">/</span>
             <a
               class={styles.version}
               href={`https://github.com/phinner/phinner.dev/commit/${__COMMIT_SHA__}`}
@@ -45,6 +45,7 @@ export function Footer() {
               rel="noopener noreferrer"
               aria-label={`${content[language()].commit} ${__COMMIT_SHA__.slice(0, 7)}`}
             >
+              <GitCommitIcon />
               {__COMMIT_SHA__.slice(0, 7)}
             </a>
           </Show>
