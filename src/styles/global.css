@@ -105,6 +105,7 @@ html[data-theme="light"] {
 }
 
 html {
+  overscroll-behavior: none;
   scrollbar-width: thin;
   scrollbar-color: var(--line) transparent;
   scrollbar-gutter: stable;
