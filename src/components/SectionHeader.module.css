@@ -4,14 +4,14 @@
   gap: 1rem;
   padding: 1rem var(--pad);
   margin-bottom: 1rem;
-  background: var(--frost-sunk);
+  background: var(--frost-page);
   -webkit-backdrop-filter: var(--frost);
   backdrop-filter: var(--frost);
 }
 
 @supports not (backdrop-filter: blur(1px)) {
   .sectionHead {
-    background: var(--panel-sunk);
+    background: var(--frost-solid);
   }
 }
 
