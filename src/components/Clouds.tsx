@@ -1,4 +1,4 @@
-import { For } from "solid-js";
+import { For, onSettled } from "solid-js";
 import styles from "./Clouds.module.css";
 
 // https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
@@ -76,14 +76,50 @@ const clouds = (() => {
       width,
       near: depth > NEAR_DEPTH_THRESHOLD,
       flip: random() < FLIP_PROBABILITY,
-      style: `--w:${size.toFixed(1)}rem;--ar:${(width / CLOUD_HEIGHT).toFixed(3)};--t:${duration.toFixed(0)}s;--delay:${(-position * duration).toFixed(1)}s;--pos:${position.toFixed(3)};top:${top.toFixed(1)}%`,
+      style: `--parallax:${lerp(0.25, 0.75, random()).toFixed(3)};--w:${size.toFixed(1)}rem;--ar:${(width / CLOUD_HEIGHT).toFixed(3)};--t:${duration.toFixed(0)}s;--delay:${(-position * duration).toFixed(1)}s;--pos:${position.toFixed(3)};top:${top.toFixed(1)}%`,
     };
   });
 })();
 
 export function Clouds() {
+  let sky: HTMLDivElement | undefined;
+
+  onSettled(() => {
+    const element = sky;
+    if (!element) return;
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const scrollRange = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollRange > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollRange)) : 0;
+      element.style.setProperty("--scroll-progress", String(progress));
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(document.documentElement);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    update();
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  });
+
   return (
-    <div class={styles.sky} aria-hidden="true">
+    <div
+      class={styles.sky}
+      aria-hidden="true"
+      ref={(element) => {
+        sky = element;
+      }}
+    >
       <For each={clouds}>
         {(cloud) => (
           <div
