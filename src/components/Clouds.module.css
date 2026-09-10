@@ -21,7 +21,6 @@
   height: auto;
   aspect-ratio: var(--ar);
   overflow: visible;
-  translate: 0 calc(-0.5 * var(--parallax) * var(--scroll-progress, 0) * var(--w) / var(--ar));
 }
 
 .cloud.flip svg {
@@ -51,10 +50,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cloud svg {
-    translate: none;
-  }
-
   .cloud {
     animation: none;
     transform: translateX(calc(var(--pos) * 100%));
