@@ -41,18 +41,14 @@ function Introduction() {
             👋 Hi there, I'm a full-stack developer based in Belgium 🇧🇪.
             <br />I build game server tooling and web apps.
           </p>
-          <p class={styles.cta}>
-            I am also looking for job opportunities. Feel free to reach out!
-          </p>
+          <p class={styles.cta}>I am also looking for job opportunities. Feel free to reach out!</p>
         </>
       );
     },
     get fr() {
       return (
         <>
-          <p>
-            👋 Salutations, je suis développeur full-stack en Belgique 🇧🇪.
-          </p>
+          <p>👋 Salutations, je suis développeur full-stack en Belgique 🇧🇪.</p>
           <p class={styles.cta}>
             Je suis disponible pour vous accompagner dans vos projets informatiques. Besoin de
             conseils, d'un site web ou d'une application interne pour votre entreprise ? Envoyez-moi
