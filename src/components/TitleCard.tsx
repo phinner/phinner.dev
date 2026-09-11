@@ -38,13 +38,11 @@ function Introduction() {
       return (
         <>
           <p>
-            👋 Hi there, I'm a computer science student and full-stack developer based in Belgium
-            🇧🇪.
-            <br />I primarily build game server tooling and web apps.
+            👋 Hi there, I'm a full-stack developer based in Belgium 🇧🇪.
+            <br />I build game server tooling and web apps.
           </p>
           <p class={styles.cta}>
-            I'm open to part-time work. Need a website or an internal app for your business, or just
-            want to chat? I'm only one message away!
+            I am also looking for job opportunities. Feel free to reach out!
           </p>
         </>
       );
@@ -53,15 +51,12 @@ function Introduction() {
       return (
         <>
           <p>
-            👋 Salutations, je suis étudiant en informatique et développeur full-stack en Belgique
-            🇧🇪.
-            <br />
-            Je développe surtout des outils pour serveurs de jeu et des applications web.
+            👋 Salutations, je suis développeur full-stack en Belgique 🇧🇪.
           </p>
           <p class={styles.cta}>
-            Je suis disponible pour du travail à temps partiel. Besoin d'un site web ou d'une
-            application interne pour votre entreprise, ou juste envie de discuter ? Envoyez-moi un
-            message !
+            Je suis disponible pour vous accompagner dans vos projets informatiques. Besoin de
+            conseils, d'un site web ou d'une application interne pour votre entreprise ? Envoyez-moi
+            un message !
           </p>
         </>
       );
