@@ -4,6 +4,7 @@ import type { ParentProps } from "solid-js";
 import { For, Loading, Show } from "solid-js";
 import { formatDateRange } from "../lib/dates";
 import type { ProjectSummary } from "../projects";
+import { isProjectScreenshot, resolveProjectImage } from "../projects/types";
 import shared from "../styles/shared.module.css";
 import { ChevronLeftIcon } from "./Icon";
 import { Image } from "./Image";
@@ -17,6 +18,7 @@ export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
   const fromHome = () => searchParams["from-home"] === "true";
   const project = () => props.project;
   const summary = () => project().content[language()];
+  const image = () => resolveProjectImage(project().image, language());
   const content = {
     en: {
       logo: (name: string) => `${name} logo`,
@@ -36,10 +38,10 @@ export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
     <div class={`${shared.view} ${styles.detail}`}>
       <PageMeta title={project().title} description={summary().description} />
       <header class={`${shared.panel} ${styles.hero}`}>
-        <Show when={project().image.kind === "screenshot"}>
+        <Show when={isProjectScreenshot(project().image)}>
           <figure class={styles.cover}>
             <Image
-              image={project().image}
+              image={image()}
               alt={content[language()].screenshot(project().title)}
               position="center top"
             />
@@ -62,10 +64,10 @@ export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
                 <span class={`${shared.roleIn} ${styles.roleIn}`}>/ {summary().role}</span>
               </Show>
             </h1>
-            <Show when={project().image.kind === "logo"}>
+            <Show when={!isProjectScreenshot(project().image)}>
               <span class={styles.mark}>
                 <Image
-                  image={project().image}
+                  image={image()}
                   alt={content[language()].logo(project().title)}
                   fit="contain"
                 />

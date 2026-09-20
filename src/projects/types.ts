@@ -2,15 +2,28 @@ import type { Component } from "solid-js";
 import type { ImageSource } from "../components/Image";
 import type { Content } from "../components/LanguageProvider";
 import type { DateRange } from "../lib/dates";
+import type { Language } from "../lib/language";
 
 export const PROJECT_NAMES = ["nohorny", "imperium", "rteam"] as const;
 
 export type ProjectName = (typeof PROJECT_NAMES)[number];
 
+export type ProjectImage =
+  | (ImageSource & { kind: "logo" | "screenshot" })
+  | { kind: "localized-screenshot"; sources: Content<ImageSource> };
+
+export function resolveProjectImage(image: ProjectImage, language: Language): ImageSource {
+  return image.kind === "localized-screenshot" ? image.sources[language] : image;
+}
+
+export function isProjectScreenshot(image: ProjectImage): boolean {
+  return image.kind !== "logo";
+}
+
 export type ProjectSummary = {
   name: ProjectName;
   title: string;
-  image: ImageSource & { kind: "logo" | "screenshot" };
+  image: ProjectImage;
   tags: string[];
   period?: DateRange;
   content: Content<{ description: string; role?: string }>;

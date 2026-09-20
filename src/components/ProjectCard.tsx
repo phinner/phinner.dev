@@ -2,6 +2,7 @@ import { useLocation } from "@solidjs/router";
 import { For, Show } from "solid-js";
 import { formatDateRange } from "../lib/dates";
 import type { ProjectSummary } from "../projects";
+import { isProjectScreenshot, resolveProjectImage } from "../projects/types";
 import shared from "../styles/shared.module.css";
 import { ChevronRightIcon } from "./Icon";
 import { Image } from "./Image";
@@ -13,6 +14,8 @@ export function ProjectCard(props: { project: ProjectSummary }) {
   const location = useLocation();
   const project = () => props.project;
   const content = () => project().content[language()];
+  const image = () => resolveProjectImage(project().image, language());
+  const imageKind = () => (isProjectScreenshot(project().image) ? "screenshot" : "logo");
   const imageLabels = {
     en: {
       logo: (name: string) => `${name} logo`,
@@ -29,7 +32,7 @@ export function ProjectCard(props: { project: ProjectSummary }) {
       class={{
         [shared.panel]: true,
         [styles.entry]: true,
-        [styles.wide]: project().image.kind === "screenshot",
+        [styles.wide]: isProjectScreenshot(project().image),
       }}
       href={`/projects/${project().name}${location.pathname === "/" ? "?from-home=true" : ""}`}
     >
@@ -37,16 +40,16 @@ export function ProjectCard(props: { project: ProjectSummary }) {
         <figure
           class={{
             [styles.preview]: true,
-            [styles.site]: project().image.kind === "screenshot",
-            [styles.fit]: project().image.kind === "logo",
+            [styles.site]: isProjectScreenshot(project().image),
+            [styles.fit]: !isProjectScreenshot(project().image),
           }}
         >
           <Image
-            image={project().image}
-            alt={imageLabels[language()][project().image.kind](project().title)}
+            image={image()}
+            alt={imageLabels[language()][imageKind()](project().title)}
             loading="lazy"
-            fit={project().image.kind === "logo" ? "contain" : "cover"}
-            position={project().image.kind === "screenshot" ? "left top" : "center"}
+            fit={imageKind() === "logo" ? "contain" : "cover"}
+            position={imageKind() === "screenshot" ? "left top" : "center"}
           />
         </figure>
         <div class={styles.summary}>

@@ -1,4 +1,4 @@
-import { rteamImage } from "../assets/images";
+import { rteamImages } from "../assets/images";
 import { Month } from "../lib/dates";
 import type { ProjectSummary } from "./types";
 
@@ -6,8 +6,8 @@ export const summary = {
   name: "rteam",
   title: "RTeam",
   image: {
-    ...rteamImage,
-    kind: "screenshot",
+    kind: "localized-screenshot",
+    sources: rteamImages,
   },
   period: { start: { month: Month.June, year: 2026 }, end: "now" },
   tags: ["React Router", "TypeScript", "SQL"],
