@@ -18,7 +18,7 @@ import {
 import { LogoMark } from "../../src/components/LogoMark";
 import type { Language } from "../../src/lib/language";
 import { OG_CARD_HEIGHT, OG_CARD_WIDTH, type OgCardKey } from "../../src/lib/og";
-import { PROJECT_NAMES, projects } from "../../src/projects";
+import { projects } from "../../src/projects";
 
 const require = createRequire(import.meta.url);
 
@@ -54,7 +54,7 @@ const FLIP_PROBABILITY = 0.5;
 
 interface CardCopy {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   description?: string;
 }
 
@@ -114,10 +114,7 @@ function copyFor(key: OgCardKey, language: Language): CardCopy {
     case "home":
       return siteCopy.home[language];
     case "projects":
-      return {
-        ...siteCopy.projects[language],
-        subtitle: PROJECT_NAMES.map((name) => projects[name].title).join(" · "),
-      };
+      return siteCopy.projects[language];
     case "not-found":
       return siteCopy["not-found"][language];
     default: {
@@ -298,19 +295,23 @@ function OgCard(props: { cardKey: OgCardKey; language: Language }) {
         >
           {copy.title}
         </div>
-        <div
-          style={{
-            "margin-top": "28px",
-            "max-width": "640px",
-            "font-family": "Martian Mono",
-            "font-size": `${subtitleSize(copy.subtitle)}px`,
-            "font-weight": 500,
-            "letter-spacing": "0.05em",
-            color: color.accent,
-          }}
-        >
-          {copy.subtitle.toUpperCase()}
-        </div>
+        <Show when={copy.subtitle}>
+          {(subtitle) => (
+            <div
+              style={{
+                "margin-top": "28px",
+                "max-width": "640px",
+                "font-family": "Martian Mono",
+                "font-size": `${subtitleSize(subtitle())}px`,
+                "font-weight": 500,
+                "letter-spacing": "0.05em",
+                color: color.accent,
+              }}
+            >
+              {subtitle().toUpperCase()}
+            </div>
+          )}
+        </Show>
         <Show when={copy.description}>
           {(description) => (
             <div
