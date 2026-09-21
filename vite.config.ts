@@ -1,6 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { defineConfig, loadEnv } from "vite";
 import solid from "vite-plugin-solid";
+import { ogCards } from "./tools/og/index.ts";
 
 export default defineConfig(({ command, mode }) => {
   const commit = (() => {
@@ -29,6 +30,7 @@ export default defineConfig(({ command, mode }) => {
         ssr: true,
         refresh: { granular: false },
       }),
+      ogCards(),
       {
         name: "phinner.dev:ssr-preserve-entry-names",
         config: () => ({

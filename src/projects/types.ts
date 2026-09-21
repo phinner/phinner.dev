@@ -1,8 +1,8 @@
 import type { Component } from "solid-js";
-import type { ImageSource } from "../components/Image";
-import type { Content } from "../components/LanguageProvider";
-import type { DateRange } from "../lib/dates";
-import type { Language } from "../lib/language";
+import type { ImageSource } from "../components/Image.tsx";
+import type { Content } from "../components/LanguageProvider.tsx";
+import type { DateRange } from "../lib/dates.ts";
+import type { Language } from "../lib/language.ts";
 
 export const PROJECT_NAMES = ["nohorny", "imperium", "rteam"] as const;
 
