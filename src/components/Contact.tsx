@@ -13,9 +13,9 @@ const contacts = {
     name: "GitHub",
   },
   twitter: {
-    href: "https://x.com/phinner9001",
+    href: "https://x.com/phinnerdev",
     icon: XAkaTwitterIcon,
-    handle: "@phinner9001",
+    handle: "@phinnerdev",
     name: "X / Twitter",
   },
   mail: {
