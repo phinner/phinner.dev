@@ -1,6 +1,7 @@
 import { Link, Meta, Title } from "@solidjs/meta";
 import { useLocation } from "@solidjs/router";
 import { OG_CARD_HEIGHT, OG_CARD_WIDTH, ogCardKey, ogCardPath } from "../lib/og";
+import { projectNames } from "../projects";
 import { useLanguage } from "./LanguageProvider";
 
 const ORIGIN = "https://phinner.dev";
@@ -8,7 +9,8 @@ const ORIGIN = "https://phinner.dev";
 export function PageMeta(props: { title: string; description: string }) {
   const location = useLocation();
   const { language } = useLanguage();
-  const card = () => `${ORIGIN}${ogCardPath(ogCardKey(location.pathname), language())}`;
+  const card = () =>
+    `${ORIGIN}${ogCardPath(ogCardKey(location.pathname, projectNames), language())}`;
 
   return (
     <>

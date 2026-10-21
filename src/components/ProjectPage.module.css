@@ -97,7 +97,7 @@
 }
 
 .prose {
-  font-size: var(--text-body);
+  font-size: var(--text-read);
   padding: var(--pad);
   display: grid;
   gap: 0.75rem;
@@ -109,7 +109,6 @@
 }
 
 .prose h2 {
-  font-family: var(--sans);
   font-size: var(--heading-3);
   letter-spacing: 0.05em;
   text-transform: uppercase;

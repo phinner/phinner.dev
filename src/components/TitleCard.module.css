@@ -19,7 +19,8 @@
 .profile .role {
   margin-top: 0.625rem;
   line-height: 1.5;
-  font-family: var(--mono);
+  font-family: var(--font-mono);
+  font-weight: 400;
   font-size: var(--text-body);
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -34,7 +35,7 @@
 
 .profile .cta {
   color: var(--ink);
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .contacts {

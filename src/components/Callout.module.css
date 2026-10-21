@@ -21,6 +21,8 @@
   border-radius: 0.625rem;
   list-style: none;
   color: var(--ink);
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-display);
   cursor: pointer;
   user-select: none;
   transition:

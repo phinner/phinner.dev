@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!!**/dist", "!!**/.solid", "!pnpm-lock.yaml", "!public"]
+    "includes": ["**", "!!**/dist", "!!**/.solid", "!pnpm-lock.yaml", "!public", "!**/*.svg"]
   },
   "formatter": {
     "enabled": true,

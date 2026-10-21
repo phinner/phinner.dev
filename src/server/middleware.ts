@@ -1,7 +1,7 @@
 import { type FetchMiddleware, parseCookieHeader, serializeCookie } from "@solidjs/web";
 import { SitemapStream, streamToPromise } from "sitemap";
 import { resolveLanguage } from "../lib/language";
-import { PROJECT_NAMES } from "../projects/types";
+import { projectNames } from "../projects";
 import { getGitHubActivity } from "./github";
 
 const middleware: FetchMiddleware = async (request, next) => {
@@ -16,7 +16,7 @@ const middleware: FetchMiddleware = async (request, next) => {
     }
     const sitemap = new SitemapStream({ hostname: "https://phinner.dev" });
     const xml = streamToPromise(sitemap);
-    for (const url of ["/", "/projects", ...PROJECT_NAMES.map((name) => `/projects/${name}`)]) {
+    for (const url of ["/", "/projects", ...projectNames.map((name) => `/projects/${name}`)]) {
       sitemap.write({ url });
     }
     sitemap.end();

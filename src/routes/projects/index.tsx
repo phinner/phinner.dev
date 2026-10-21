@@ -4,7 +4,7 @@ import { useLanguage } from "../../components/LanguageProvider";
 import { PageMeta } from "../../components/PageMeta";
 import { ProjectCard } from "../../components/ProjectCard";
 import { SectionHeader } from "../../components/SectionHeader";
-import { PROJECT_NAMES, projects } from "../../projects";
+import { projects } from "../../projects";
 import shared from "../../styles/shared.module.css";
 
 export default function Projects() {
@@ -29,7 +29,7 @@ export default function Projects() {
       <section>
         <SectionHeader heading="h1" title={content[language()].allProjects} icon={HammerIcon} />
         <div class={shared.stack}>
-          <For each={PROJECT_NAMES}>{(name) => <ProjectCard project={projects[name]} />}</For>
+          <For each={projects}>{(project) => <ProjectCard project={project} />}</For>
         </div>
       </section>
     </div>

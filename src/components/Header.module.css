@@ -4,6 +4,8 @@
   z-index: 10;
   border-bottom: 2px solid var(--line);
   background: var(--frost-page);
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-display);
   -webkit-backdrop-filter: var(--frost);
   backdrop-filter: var(--frost);
 }

@@ -39,8 +39,8 @@
   grid-auto-columns: 12px;
   gap: 2px;
   width: max-content;
-  font-family: var(--mono);
-  letter-spacing: normal;
+  font-family: var(--font-mono);
+  font-weight: 400;
   font-size: 0.75rem; /* sized to the 12px cell grid */
   color: var(--ink-faint);
   line-height: 1;
@@ -57,8 +57,8 @@
   grid-template-rows: repeat(7, 12px);
   gap: 2px;
   margin-top: calc(0.75rem + 4px);
-  font-family: var(--mono);
-  letter-spacing: normal;
+  font-family: var(--font-mono);
+  font-weight: 400;
   font-size: 0.75rem;
   color: var(--ink-faint);
   line-height: 12px;
@@ -111,8 +111,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  font-family: var(--mono);
-  letter-spacing: normal;
+  font-family: var(--font-mono);
+  font-weight: 400;
   font-size: var(--text-label);
   color: var(--ink-faint);
 }
@@ -176,8 +176,8 @@
 }
 
 .prMeta {
-  font-family: var(--mono);
-  letter-spacing: normal;
+  font-family: var(--font-mono);
+  font-weight: 400;
   font-size: var(--text-label);
   color: var(--ink-faint);
   white-space: nowrap;
@@ -213,7 +213,8 @@
   -webkit-backdrop-filter: var(--frost);
   backdrop-filter: var(--frost);
   color: var(--ink);
-  font-family: var(--mono);
+  font-family: var(--font-mono);
+  font-weight: 400;
   font-size: var(--text-label);
   line-height: 1.2;
   pointer-events: none;

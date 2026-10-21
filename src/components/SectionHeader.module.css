@@ -39,7 +39,8 @@
 
 .sectionHead .sub {
   margin-left: auto;
-  font-family: var(--mono);
+  font-family: var(--font-mono);
+  font-weight: 400;
   font-size: var(--text-label);
   letter-spacing: 0.04em;
   text-transform: uppercase;

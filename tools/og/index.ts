@@ -8,7 +8,8 @@ import type { Plugin } from "vite";
 import { runnerImport } from "vite";
 import solid from "vite-plugin-solid";
 import { type Language, parseLanguage } from "../../src/lib/language.ts";
-import { OG_CARD_KEYS, type OgCardKey, ogCardPath } from "../../src/lib/og.ts";
+import { type OgCardKey, ogCardPath } from "../../src/lib/og.ts";
+import { projectContent } from "../projects/index.ts";
 
 type CardModule = typeof import("./Card.tsx");
 
@@ -34,13 +35,10 @@ function assetName(key: OgCardKey, language: Language): string {
 }
 
 /** The card and language a request path names, if it names one. */
-function parseCardPath(pathname: string): [OgCardKey, Language] | undefined {
+function parseCardPath(pathname: string): [string, Language] | undefined {
   const match = /^\/og\/(.+)-([a-z]{2})\.png$/.exec(pathname);
-  if (!match) return undefined;
-
-  const key = OG_CARD_KEYS.find((candidate) => candidate === match[1]);
-  const language = parseLanguage(match[2]);
-  return key && language ? [key, language] : undefined;
+  const language = parseLanguage(match?.[2]);
+  return match?.[1] && language ? [match[1], language] : undefined;
 }
 
 export function ogCards(): Plugin {
@@ -49,7 +47,7 @@ export function ogCards(): Plugin {
   const loadBuildModule = () => {
     buildModule ??= runnerImport<CardModule>(CARD_MODULE, {
       configFile: false,
-      plugins: [solid({ ssr: true })],
+      plugins: [solid({ ssr: true }), projectContent()],
     }).then(({ module }) => module);
     return buildModule;
   };
@@ -66,8 +64,14 @@ export function ogCards(): Plugin {
 
         server
           .ssrLoadModule(CARD_MODULE)
-          .then((module) => renderFromModule(module, ...target))
+          .then((module) => {
+            const [key, language] = target;
+            const keys: unknown = module.cardKeys?.();
+            if (!Array.isArray(keys) || !keys.includes(key)) return undefined;
+            return renderFromModule(module, key, language);
+          })
           .then((png) => {
+            if (!png) return next();
             response.setHeader("content-type", "image/png");
             response.end(png);
           }, next);
@@ -77,9 +81,9 @@ export function ogCards(): Plugin {
     async generateBundle() {
       if (this.environment.name !== "client") return;
 
-      const { renderCard } = await loadBuildModule();
+      const { cardKeys, renderCard } = await loadBuildModule();
 
-      for (const key of OG_CARD_KEYS) {
+      for (const key of cardKeys()) {
         for (const language of LANGUAGES) {
           this.emitFile({
             type: "asset",
