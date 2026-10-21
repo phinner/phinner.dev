@@ -1,7 +1,10 @@
 ---
 description: Modération automatique d'images pour les serveurs de jeu Mindustry.
-link:
-  label: Code source
+links:
+  website:
+    label: Site web
+  source:
+    label: Code source
 ---
 
 <!-- ::what-is-mindustry -->

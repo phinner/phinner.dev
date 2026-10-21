@@ -4,14 +4,14 @@ import { createMemo, For, Loading, Show } from "solid-js";
 import { formatDateRange } from "../lib/dates";
 import { loadProjectBody, type Project } from "../projects";
 import shared from "../styles/shared.module.css";
-import { ChevronLeftIcon, GitHubIcon } from "./Icon";
+import { ChevronLeftIcon, GitHubIcon, GlobeIcon } from "./Icon";
 import { Image } from "./Image";
 import { useLanguage } from "./LanguageProvider";
 import { Markdown } from "./Markdown";
 import { PageMeta } from "./PageMeta";
 import styles from "./ProjectPage.module.css";
 
-const linkIcons = { github: GitHubIcon };
+const linkIcons = { github: GitHubIcon, website: GlobeIcon };
 
 export function ProjectPage(props: { project: Project }) {
   const { language } = useLanguage();
@@ -89,19 +89,23 @@ export function ProjectPage(props: { project: Project }) {
             </For>
           </div>
           <div class={shared.actions}>
-            <a
-              class={`${shared.btn} ${shared.small}`}
-              href={summary().link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class={shared.face}>
-                <Show when={summary().link.icon}>
-                  {(icon) => <Dynamic component={linkIcons[icon()]} />}
-                </Show>
-                {summary().link.label}
-              </span>
-            </a>
+            <For each={Object.values(summary().links)}>
+              {(link) => (
+                <a
+                  class={`${shared.btn} ${shared.small}`}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class={shared.face}>
+                    <Show when={link.icon}>
+                      {(icon) => <Dynamic component={linkIcons[icon()]} />}
+                    </Show>
+                    {link.label}
+                  </span>
+                </a>
+              )}
+            </For>
           </div>
         </div>
       </header>

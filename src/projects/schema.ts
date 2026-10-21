@@ -33,11 +33,18 @@ export const ProjectMetaSchema = v.strictObject({
     kind: v.picklist(["logo", "screenshot"]),
     src: v.string(),
   }),
-  link: v.strictObject({
-    href: v.pipe(v.string(), v.url()),
-    label: v.string(),
-    icon: v.optional(v.picklist(["github"])),
-  }),
+  /**
+   * Buttons on the project page, in order. Keyed by a name of your choice so
+   * another language can relabel one without repeating the rest.
+   */
+  links: v.record(
+    v.string(),
+    v.strictObject({
+      href: v.pipe(v.string(), v.url()),
+      label: v.string(),
+      icon: v.optional(v.picklist(["github", "website"])),
+    }),
+  ),
 });
 
 export type ProjectMetaSource = v.InferOutput<typeof ProjectMetaSchema>;

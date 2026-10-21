@@ -7,10 +7,15 @@ order: 1
 image:
   kind: logo
   src: ./logo.svg
-link:
-  href: https://github.com/xpdustry/nohorny
-  label: Source code
-  icon: github
+links:
+  website:
+    href: https://nohorny.xpdustry.com
+    label: Website
+    icon: website
+  source:
+    href: https://github.com/xpdustry/nohorny
+    label: Source code
+    icon: github
 ---
 
 <!-- ::what-is-mindustry -->

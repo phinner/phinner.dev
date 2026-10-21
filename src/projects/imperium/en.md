@@ -7,10 +7,11 @@ order: 2
 image:
   kind: logo
   src: ./logo.svg
-link:
-  href: https://github.com/xpdustry/imperium
-  label: Source code
-  icon: github
+links:
+  source:
+    href: https://github.com/xpdustry/imperium
+    label: Source code
+    icon: github
 ---
 
 <!-- ::what-is-mindustry -->

@@ -112,6 +112,17 @@ export function HammerIcon(props: { class?: string }) {
   );
 }
 
+// Source: https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/globe.svg
+export function GlobeIcon() {
+  return (
+    <svg aria-hidden="true" {...LUCIDE_SVG_PROPS}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+      <path d="M2 12h20" />
+    </svg>
+  );
+}
+
 // Source: https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/mail.svg
 export function MailIcon() {
   return (

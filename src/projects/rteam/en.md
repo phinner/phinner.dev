@@ -11,9 +11,10 @@ order: 3
 image:
   kind: screenshot
   src: ./site-en.webp
-link:
-  href: https://rteam.be
-  label: rteam.be
+links:
+  website:
+    href: https://rteam.be
+    label: rteam.be
 ---
 
 ## The job

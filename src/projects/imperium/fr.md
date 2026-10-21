@@ -1,7 +1,8 @@
 ---
 description: Le plugin qui fait tourner et modère mon réseau de serveurs Mindustry.
-link:
-  label: Code source
+links:
+  source:
+    label: Code source
 ---
 
 <!-- ::what-is-mindustry -->
