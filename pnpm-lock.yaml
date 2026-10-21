@@ -174,7 +174,10 @@ importers:
       '@effect/platform-node':
         specifier: 4.0.0-rc.112
         version: 4.0.0-rc.112(effect@4.0.0-rc.112)(redis@6.2.1)
-      '@fontsource-variable/martian-mono':
+      '@fontsource-variable/momo-trust-sans':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource/dm-mono':
         specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/momo-trust-display':
@@ -752,8 +755,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fontsource-variable/martian-mono@5.3.0':
-    resolution: {integrity: sha512-0wVODx9ILwNnaYC4XCuSaFRYtj1Prd89MRVaSuv2ng6zLiQkS4SepaWEPefs7vqCZS8sbEOA8jb/4F5KNMnGdg==}
+  '@fontsource-variable/momo-trust-sans@5.3.0':
+    resolution: {integrity: sha512-XigU/rtPa6745ij6Rlq5XqUSZBFBQiF/4eCVBFPGBo5wtuGHMMsvzyP7NpAQ92Jj1t6oj2oZLiJHit98dmPhnA==}
+
+  '@fontsource/dm-mono@5.3.0':
+    resolution: {integrity: sha512-OINjI8C1S/wpchhQxl7njZdMn4+hnDCpQ4YtvvOpKNARo+0J8O1x1IcrChxNjHOhfVv1by8C/FQoy3hXK+C1Ug==}
 
   '@fontsource/momo-trust-display@5.3.0':
     resolution: {integrity: sha512-4FxFAi9LMSGjLHgRZD4Uqb/WWuTuq9vAAzK+i2Ztiplkn57MYYsIX5GaIhQ2YjqwIxflqD1iOpEAZICbDlKjaw==}
@@ -2256,7 +2262,9 @@ snapshots:
   '@esbuild/win32-x64@0.28.2':
     optional: true
 
-  '@fontsource-variable/martian-mono@5.3.0': {}
+  '@fontsource-variable/momo-trust-sans@5.3.0': {}
+
+  '@fontsource/dm-mono@5.3.0': {}
 
   '@fontsource/momo-trust-display@5.3.0': {}
 

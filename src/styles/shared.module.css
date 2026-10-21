@@ -28,6 +28,8 @@
   cursor: pointer;
   user-select: none;
   font: inherit;
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-display);
 }
 
 .btn > .face {
@@ -145,9 +147,9 @@
   border: 1px solid var(--line-soft);
   border-radius: 0.25rem;
   background: var(--page-sunk);
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-size: var(--text-label);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.02em;
   color: var(--ink-muted);
   white-space: nowrap;

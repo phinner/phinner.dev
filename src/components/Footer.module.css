@@ -41,7 +41,8 @@
   gap: 0.25rem;
   padding-block: 0.125rem;
   border-radius: 0.25rem;
-  font-family: var(--mono);
+  font-family: var(--font-mono);
+  font-weight: 400;
   font-size: var(--text-label);
   letter-spacing: -0.02em;
   color: var(--ink-faint);

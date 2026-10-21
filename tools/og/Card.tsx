@@ -25,8 +25,10 @@ const require = createRequire(import.meta.url);
 const FONT_FILES = [
   "@fontsource/momo-trust-display/files/momo-trust-display-latin-400-normal.woff2",
   "@fontsource/momo-trust-display/files/momo-trust-display-latin-ext-400-normal.woff2",
-  "@fontsource-variable/martian-mono/files/martian-mono-latin-wght-normal.woff2",
-  "@fontsource-variable/martian-mono/files/martian-mono-latin-ext-wght-normal.woff2",
+  "@fontsource/dm-mono/files/dm-mono-latin-400-normal.woff2",
+  "@fontsource/dm-mono/files/dm-mono-latin-ext-400-normal.woff2",
+  "@fontsource/dm-mono/files/dm-mono-latin-500-normal.woff2",
+  "@fontsource/dm-mono/files/dm-mono-latin-ext-500-normal.woff2",
 ];
 
 const color = {
@@ -301,7 +303,7 @@ function OgCard(props: { cardKey: OgCardKey; language: Language }) {
               style={{
                 "margin-top": "28px",
                 "max-width": "640px",
-                "font-family": "Martian Mono",
+                "font-family": "DM Mono",
                 "font-size": `${subtitleSize(subtitle())}px`,
                 "font-weight": 500,
                 "letter-spacing": "0.05em",
@@ -342,9 +344,9 @@ function OgCard(props: { cardKey: OgCardKey; language: Language }) {
           position: "absolute",
           left: `${PADDING}px`,
           top: `${OG_CARD_HEIGHT - 52 - 26}px`,
-          "font-family": "Martian Mono",
+          "font-family": "DM Mono",
           "font-size": "22px",
-          "font-weight": 600,
+          "font-weight": 500,
           "letter-spacing": "0.06em",
           color: color.inkFaint,
         }}
