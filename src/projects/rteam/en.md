@@ -18,12 +18,12 @@ link:
 
 ## The job
 
-RTeam is a small repair business in Namur, Belgium. The owner handled their repairs with Google Forms and spreadsheets. But as they scaled, they wanted a dedicated platform and a better online presence.
+RTeam is a small repair business in Namur, Belgium. The owner handled their repairs with Google Forms and spreadsheets. But as they scaled, they wanted a **dedicated platform and a better online presence**.
 
-I worked with them to create the initial public website, until they were satisfied with the visuals. Then I worked on the repair request flows.
+I worked with them to create the initial public website, until they were satisfied with the visuals. Then I worked on the **repair request flows**.
 
 Customers can request repairs through a form on the website. For email and phone, a technician fills in the form.
 
 I'm enjoying the work and learning a lot about React Router and the Belgian and European legal requirements for websites.
 
-As of early September 2026, I'm refining the public site and finishing the sales feature. Listings for refurbished items and spare parts will appear on the site and be published on Facebook automatically.
+As of early September 2026, I'm refining the public site and finishing the sales feature. Listings for refurbished items and spare parts will appear on the site and be **published on Facebook automatically**.
