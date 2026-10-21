@@ -4,7 +4,8 @@ import styles from "./Image.module.css";
 
 export type ImageSource = {
   src: string;
-  preview: string;
+  /** A tiny inline image shown blurred until the real one loads. */
+  preview?: string;
   width: number;
   height: number;
 };
@@ -41,7 +42,9 @@ export function Image(props: {
       style={{
         "--aspect-ratio": props.image.width / props.image.height,
         "background-image":
-          settledSource() === props.image.src ? "none" : `url("${props.image.preview}")`,
+          settledSource() === props.image.src || !props.image.preview
+            ? "none"
+            : `url("${props.image.preview}")`,
         "background-size": props.fit ?? "cover",
         "background-position": props.position ?? "center",
       }}

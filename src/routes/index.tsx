@@ -1,4 +1,4 @@
-import { Loading, lazy } from "solid-js";
+import { For, Loading, lazy } from "solid-js";
 import { BuildingIcon, ChevronRightIcon, GitHubIcon, HammerIcon } from "../components/Icon";
 import { useLanguage } from "../components/LanguageProvider";
 import { PageMeta } from "../components/PageMeta";
@@ -6,7 +6,7 @@ import { ProjectCard } from "../components/ProjectCard";
 import { SectionHeader } from "../components/SectionHeader";
 import sectionHeaderStyles from "../components/SectionHeader.module.css";
 import { TitleCard } from "../components/TitleCard";
-import { projects } from "../projects";
+import { projectsOnLanding } from "../projects";
 import shared from "../styles/shared.module.css";
 
 const GitHubActivity = lazy(() => import("../components/GitHubActivity"), {
@@ -38,7 +38,11 @@ export default function Home() {
       <TitleCard />
       <section>
         <SectionHeader title={content[language()].work} icon={BuildingIcon} />
-        <ProjectCard project={projects.rteam} />
+        <div class={shared.stack}>
+          <For each={projectsOnLanding("work")}>
+            {(project) => <ProjectCard project={project} />}
+          </For>
+        </div>
       </section>
       <section>
         <SectionHeader title={content[language()].built} icon={HammerIcon}>
@@ -47,8 +51,9 @@ export default function Home() {
           </a>
         </SectionHeader>
         <div class={shared.stack}>
-          <ProjectCard project={projects.nohorny} />
-          <ProjectCard project={projects.imperium} />
+          <For each={projectsOnLanding("built")}>
+            {(project) => <ProjectCard project={project} />}
+          </For>
         </div>
       </section>
       <section>

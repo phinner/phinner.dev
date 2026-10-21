@@ -1,24 +1,25 @@
 import { useSearchParams } from "@solidjs/router";
 import { Dynamic } from "@solidjs/web";
-import type { ParentProps } from "solid-js";
-import { For, Loading, Show } from "solid-js";
+import { createMemo, For, Loading, Show } from "solid-js";
 import { formatDateRange } from "../lib/dates";
-import type { ProjectSummary } from "../projects";
-import { isProjectScreenshot, resolveProjectImage } from "../projects/types";
+import { loadProjectBody, type Project } from "../projects";
 import shared from "../styles/shared.module.css";
-import { ChevronLeftIcon } from "./Icon";
+import { ChevronLeftIcon, GitHubIcon } from "./Icon";
 import { Image } from "./Image";
 import { useLanguage } from "./LanguageProvider";
+import { Markdown } from "./Markdown";
 import { PageMeta } from "./PageMeta";
 import styles from "./ProjectPage.module.css";
 
-export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
+const linkIcons = { github: GitHubIcon };
+
+export function ProjectPage(props: { project: Project }) {
   const { language } = useLanguage();
   const [searchParams] = useSearchParams();
   const fromHome = () => searchParams["from-home"] === "true";
-  const project = () => props.project;
-  const summary = () => project().content[language()];
-  const image = () => resolveProjectImage(project().image, language());
+  const summary = () => props.project.content[language()];
+  const isScreenshot = () => summary().image.kind === "screenshot";
+  const body = createMemo(() => loadProjectBody(props.project.name, language()));
   const content = {
     en: {
       logo: (name: string) => `${name} logo`,
@@ -36,13 +37,13 @@ export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
 
   return (
     <div class={`${shared.view} ${styles.detail}`}>
-      <PageMeta title={project().title} description={summary().description} />
+      <PageMeta title={summary().title} description={summary().description} />
       <header class={`${shared.panel} ${styles.hero}`}>
-        <Show when={isProjectScreenshot(project().image)}>
+        <Show when={isScreenshot()}>
           <figure class={styles.cover}>
             <Image
-              image={image()}
-              alt={content[language()].screenshot(project().title)}
+              image={summary().image}
+              alt={content[language()].screenshot(summary().title)}
               position="center top"
             />
           </figure>
@@ -59,21 +60,21 @@ export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
               </span>
             </a>
             <h1>
-              {project().title}{" "}
+              {summary().title}{" "}
               <Show when={summary().role}>
                 <span class={`${shared.roleIn} ${styles.roleIn}`}>/ {summary().role}</span>
               </Show>
             </h1>
-            <Show when={!isProjectScreenshot(project().image)}>
+            <Show when={!isScreenshot()}>
               <span class={styles.mark}>
                 <Image
-                  image={image()}
-                  alt={content[language()].logo(project().title)}
+                  image={summary().image}
+                  alt={content[language()].logo(summary().title)}
                   fit="contain"
                 />
               </span>
             </Show>
-            <Show when={project().period}>
+            <Show when={summary().period}>
               {(period) => (
                 <span class={`${shared.badge} ${styles.badge}`}>
                   {formatDateRange(period(), language())}
@@ -83,20 +84,22 @@ export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
           </div>
           <p class={styles.lede}>{summary().description}</p>
           <div class={shared.tags}>
-            <For each={project().tags}>
+            <For each={summary().tags}>
               {(tag) => <span class={`${shared.badge} ${styles.badge}`}>{tag}</span>}
             </For>
           </div>
           <div class={shared.actions}>
             <a
               class={`${shared.btn} ${shared.small}`}
-              href={project().link.href}
+              href={summary().link.href}
               target="_blank"
               rel="noopener noreferrer"
             >
               <span class={shared.face}>
-                <Show when={project().link.icon}>{(icon) => <Dynamic component={icon()} />}</Show>
-                {project().link.label[language()]}
+                <Show when={summary().link.icon}>
+                  {(icon) => <Dynamic component={linkIcons[icon()]} />}
+                </Show>
+                {summary().link.label}
               </span>
             </a>
           </div>
@@ -104,7 +107,7 @@ export function ProjectPage(props: ParentProps<{ project: ProjectSummary }>) {
       </header>
       <Loading>
         <article class={`${shared.panel} ${styles.prose} ${shared.slideIn}`}>
-          {props.children}
+          <Markdown document={body()} />
         </article>
       </Loading>
     </div>

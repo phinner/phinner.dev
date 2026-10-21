@@ -1,4 +1,4 @@
-.media {
+.gallery {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
@@ -6,7 +6,7 @@
   margin-inline: auto;
 }
 
-.media img {
+.gallery img {
   flex: var(--aspect-ratio) 1 0;
   min-width: 0;
   width: 0;

@@ -31,6 +31,7 @@
     "@solidjs/meta": "1.0.0-next.2",
     "@solidjs/router": "2.0.0-next.18",
     "@solidjs/web": "2.0.0-rc.4",
+    "@tanstack/markdown": "^1.0.0",
     "effect": "4.0.0-rc.112",
     "sitemap": "^9.0.1",
     "solid-js": "2.0.0-rc.4",
@@ -41,9 +42,11 @@
     "@takumi-rs/core": "2.14.0",
     "@takumi-rs/helpers": "2.14.0",
     "@types/node": "^22.10.0",
+    "image-size": "^2.0.4",
     "typescript": "^7.0.2",
     "vite": "^8.2.1",
     "vite-plugin-solid": "3.0.0-next.27",
-    "wrangler": "^4.129.1"
+    "wrangler": "^4.129.1",
+    "yaml": "^2.9.1"
   }
 }

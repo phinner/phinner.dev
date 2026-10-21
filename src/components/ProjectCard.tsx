@@ -1,21 +1,18 @@
 import { useLocation } from "@solidjs/router";
 import { For, Show } from "solid-js";
 import { formatDateRange } from "../lib/dates";
-import type { ProjectSummary } from "../projects";
-import { isProjectScreenshot, resolveProjectImage } from "../projects/types";
+import type { Project } from "../projects";
 import shared from "../styles/shared.module.css";
 import { ChevronRightIcon } from "./Icon";
 import { Image } from "./Image";
 import { useLanguage } from "./LanguageProvider";
 import styles from "./ProjectCard.module.css";
 
-export function ProjectCard(props: { project: ProjectSummary }) {
+export function ProjectCard(props: { project: Project }) {
   const { language } = useLanguage();
   const location = useLocation();
-  const project = () => props.project;
-  const content = () => project().content[language()];
-  const image = () => resolveProjectImage(project().image, language());
-  const imageKind = () => (isProjectScreenshot(project().image) ? "screenshot" : "logo");
+  const content = () => props.project.content[language()];
+  const isScreenshot = () => content().image.kind === "screenshot";
   const imageLabels = {
     en: {
       logo: (name: string) => `${name} logo`,
@@ -32,35 +29,35 @@ export function ProjectCard(props: { project: ProjectSummary }) {
       class={{
         [shared.panel]: true,
         [styles.entry]: true,
-        [styles.wide]: isProjectScreenshot(project().image),
+        [styles.wide]: isScreenshot(),
       }}
-      href={`/projects/${project().name}${location.pathname === "/" ? "?from-home=true" : ""}`}
+      href={`/projects/${props.project.name}${location.pathname === "/" ? "?from-home=true" : ""}`}
     >
       <div class={styles.row}>
         <figure
           class={{
             [styles.preview]: true,
-            [styles.site]: isProjectScreenshot(project().image),
-            [styles.fit]: !isProjectScreenshot(project().image),
+            [styles.site]: isScreenshot(),
+            [styles.fit]: !isScreenshot(),
           }}
         >
           <Image
-            image={image()}
-            alt={imageLabels[language()][imageKind()](project().title)}
+            image={content().image}
+            alt={imageLabels[language()][content().image.kind](content().title)}
             loading="lazy"
-            fit={imageKind() === "logo" ? "contain" : "cover"}
-            position={imageKind() === "screenshot" ? "left top" : "center"}
+            fit={isScreenshot() ? "cover" : "contain"}
+            position={isScreenshot() ? "left top" : "center"}
           />
         </figure>
         <div class={styles.summary}>
           <div class={`${shared.head} ${styles.head}`}>
             <h3>
-              {project().title}{" "}
+              {content().title}{" "}
               <Show when={content().role}>
                 <span class={shared.roleIn}>/ {content().role}</span>
               </Show>
             </h3>
-            <Show when={project().period}>
+            <Show when={content().period}>
               {(period) => (
                 <span class={`${shared.badge} ${styles.when}`}>
                   {formatDateRange(period(), language())}
@@ -70,7 +67,7 @@ export function ProjectCard(props: { project: ProjectSummary }) {
           </div>
           <p>{content().description}</p>
           <div class={`${shared.tags} ${styles.tags}`}>
-            <For each={project().tags}>{(tag) => <span class={shared.badge}>{tag}</span>}</For>
+            <For each={content().tags}>{(tag) => <span class={shared.badge}>{tag}</span>}</For>
           </div>
         </div>
       </div>

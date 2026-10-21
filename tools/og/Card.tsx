@@ -17,8 +17,8 @@ import {
 } from "../../src/components/CloudShape";
 import { LogoMark } from "../../src/components/LogoMark";
 import type { Language } from "../../src/lib/language";
-import { OG_CARD_HEIGHT, OG_CARD_WIDTH, type OgCardKey } from "../../src/lib/og";
-import { projects } from "../../src/projects";
+import { OG_CARD_HEIGHT, OG_CARD_WIDTH, type OgCardKey, ogCardKeys } from "../../src/lib/og";
+import { findProject, projectNames } from "../../src/projects";
 
 const require = createRequire(import.meta.url);
 
@@ -60,14 +60,31 @@ interface CardCopy {
   description?: string;
 }
 
-const cardDetails = {
-  home: { path: "phinner.dev", seed: 41 },
-  projects: { path: "phinner.dev/projects", seed: 9 },
-  nohorny: { path: "phinner.dev/projects/nohorny", seed: 3 },
-  imperium: { path: "phinner.dev/projects/imperium", seed: 12 },
-  rteam: { path: "phinner.dev/projects/rteam", seed: 77 },
-  "not-found": { path: "phinner.dev", seed: 55 },
-} satisfies Record<OgCardKey, { path: string; seed: number }>;
+/** Cloud seeds of the existing cards; a new project derives one from its name. */
+const cardSeeds: Record<string, number> = {
+  home: 41,
+  projects: 9,
+  "not-found": 55,
+  nohorny: 3,
+  imperium: 12,
+  rteam: 77,
+};
+
+function cardDetails(key: OgCardKey): { path: string; seed: number } {
+  const path = findProject(key)
+    ? `phinner.dev/projects/${key}`
+    : key === "projects"
+      ? "phinner.dev/projects"
+      : "phinner.dev";
+  const seed =
+    cardSeeds[key] ?? [...key].reduce((hash, char) => Math.imul(hash, 31) + char.charCodeAt(0), 7);
+  return { path, seed };
+}
+
+/** Every card the build bakes, one per page and project. */
+export function cardKeys(): OgCardKey[] {
+  return ogCardKeys(projectNames);
+}
 
 const siteCopy = {
   home: {
@@ -120,11 +137,13 @@ function copyFor(key: OgCardKey, language: Language): CardCopy {
     case "not-found":
       return siteCopy["not-found"][language];
     default: {
-      const project = projects[key];
+      const project = findProject(key);
+      if (!project) throw new Error(`No OG card for "${key}"`);
+      const content = project.content[language];
       return {
-        title: project.title,
-        subtitle: project.tags.join(" · "),
-        description: project.content[language].description,
+        title: content.title,
+        subtitle: content.tags.join(" · "),
+        description: content.description,
       };
     }
   }
@@ -212,7 +231,7 @@ function cardClouds(seed: number): CardCloud[] {
 }
 
 function OgCard(props: { cardKey: OgCardKey; language: Language }) {
-  const details = cardDetails[props.cardKey];
+  const details = cardDetails(props.cardKey);
   const copy = copyFor(props.cardKey, props.language);
 
   return (

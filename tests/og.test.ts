@@ -3,16 +3,18 @@ import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { runnerImport } from "vite";
 import solid from "vite-plugin-solid";
-import { ogCardKey } from "../src/lib/og.ts";
+import { ogCardKey as cardKeyFor } from "../src/lib/og.ts";
+import { projectContent } from "../tools/projects/index.ts";
 
 type CardModule = typeof import("../tools/og/Card.tsx");
 
 const cardModule = runnerImport<CardModule>(
   fileURLToPath(new URL("../tools/og/Card.tsx", import.meta.url)),
-  { configFile: false, plugins: [solid({ ssr: true })] },
+  { configFile: false, plugins: [solid({ ssr: true }), projectContent()] },
 ).then(({ module }) => module);
 
 test("every page maps to a card, unknown paths to the 404 one", () => {
+  const ogCardKey = (path: string) => cardKeyFor(path, ["nohorny", "rteam"]);
   assert.equal(ogCardKey("/"), "home");
   assert.equal(ogCardKey("/projects"), "projects");
   assert.equal(ogCardKey("/projects/"), "projects");
