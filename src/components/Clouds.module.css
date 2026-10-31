@@ -4,6 +4,8 @@
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
+  /* Deeper sky up top, settling into the page colour below. */
+  background: linear-gradient(var(--page-sunk), var(--page));
 }
 
 .cloud {
